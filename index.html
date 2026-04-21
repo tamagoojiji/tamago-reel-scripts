@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>たまごのパーク攻略 リール台本5本</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d27;
+    --card-hover: #202431;
+    --border: #2a2f3e;
+    --text: #e6e8ef;
+    --text-sub: #9aa0b4;
+    --accent: #ffb84d;
+    --accent-2: #ff6b9d;
+    --moon: #7aa7ff;
+    --earth: #6fd39c;
+    --sun: #ffb84d;
+    --ok: #3dd68c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 16px 80px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  header {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 0 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+  }
+  header p { margin: 2px 0; color: var(--text-sub); font-size: 13px; }
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(15,17,23,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    margin: 0 -16px 20px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .toolbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .toolbar .status {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text-sub);
+  }
+  button {
+    background: var(--card);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  button:hover { background: var(--card-hover); border-color: var(--accent); }
+  button.primary { background: var(--accent); color: #1a1d27; border-color: var(--accent); font-weight: 600; }
+  button.primary:hover { background: #ffc670; }
+  button.danger { border-color: #4a2a2a; color: #ff8b8b; }
+  button.danger:hover { background: #2a1818; }
+
+  main { max-width: 960px; margin: 0 auto; }
+
+  .script-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .script-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .script-number {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #1a1d27;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .script-title {
+    flex: 1;
+    font-size: 17px;
+    font-weight: 600;
+    outline: none;
+  }
+  .script-title:focus { background: #242837; border-radius: 6px; padding: 2px 6px; margin: -2px -6px; }
+
+  .scene {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 10px 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #232735;
+  }
+  .scene:last-of-type { border-bottom: none; }
+  .scene-time {
+    color: var(--text-sub);
+    font-size: 12px;
+    font-family: "SF Mono", Menlo, monospace;
+    padding-top: 3px;
+    white-space: nowrap;
+  }
+  .scene-time b {
+    display: block;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+  .scene-fields { display: flex; flex-direction: column; gap: 6px; }
+  .field {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 10px;
+    font-size: 14px;
+  }
+  .field-label {
+    color: var(--text-sub);
+    font-size: 11px;
+    padding-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .editable {
+    outline: none;
+    border-radius: 6px;
+    padding: 3px 8px;
+    margin: -3px -8px;
+    transition: background 0.1s;
+    min-height: 1.4em;
+  }
+  .editable:hover { background: #222637; }
+  .editable:focus { background: #262b3e; box-shadow: inset 0 0 0 1px var(--accent); }
+  .editable[data-placeholder]:empty::before {
+    content: attr(data-placeholder);
+    color: #565c71;
+  }
+
+  .caption-block, .hashtag-block, .personality-block {
+    background: #14171f;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 14px;
+  }
+  .block-label {
+    font-size: 11px;
+    color: var(--text-sub);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .caption-text, .hashtag-text {
+    white-space: pre-wrap;
+    line-height: 1.75;
+  }
+
+  .personality-block ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .personality-block li {
+    display: flex;
+    gap: 10px;
+    margin: 4px 0;
+    align-items: flex-start;
+  }
+  .pill {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .pill.sun { background: rgba(255,184,77,0.18); color: var(--sun); }
+  .pill.earth { background: rgba(111,211,156,0.18); color: var(--earth); }
+  .pill.moon { background: rgba(122,167,255,0.18); color: var(--moon); }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    justify-content: flex-end;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--ok);
+    color: #0a1f15;
+    padding: 10px 20px;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  footer {
+    max-width: 960px;
+    margin: 40px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-sub);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  @media (max-width: 600px) {
+    .scene { grid-template-columns: 1fr; gap: 6px; }
+    .scene-time { padding-top: 0; }
+    .field { grid-template-columns: 46px 1fr; }
+    .toolbar-inner { gap: 6px; }
+    button { padding: 7px 10px; font-size: 12px; }
+    .toolbar .status { width: 100%; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🎬 たまごのパーク攻略 / ローンチ用リール台本</h1>
+  <p>構成: 結論 → 共感① → 共感② → 不安解消 → 説明少し → ハッピーな未来（ループ構造）</p>
+  <p>全項目クリックで編集可 / 変更は自動保存（このブラウザに保存）</p>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <button class="primary" onclick="downloadMarkdown()">📥 Markdownで保存</button>
+    <button onclick="downloadJSON()">💾 JSONバックアップ</button>
+    <button onclick="importJSON()">📂 JSON読込</button>
+    <button class="danger" onclick="resetAll()">🔄 初期値に戻す</button>
+    <span class="status" id="saveStatus">—</span>
+  </div>
+</div>
+
+<main id="scripts"></main>
+
+<footer>
+  最終更新: <span id="lastUpdated">-</span> / 編集内容はこのブラウザのlocalStorageに保存されます
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<input type="file" id="fileInput" accept=".json" style="display:none;" />
+
+<script>
+const DEFAULT_SCRIPTS = [
+  {
+    title: "パパ株爆上がり系（メインターゲット・父親目線）",
+    scenes: [
+      { time: "0-3s", label: "結論 / ループ起点", telop: "もう、USJ前夜に1人で調べなくていい", video: "子供2人とパパがパークでハイタッチ（ハッピー未来カットA）※ループ起点", audio: "これ1つで、もう十分やと思う" },
+      { time: "3-7s", label: "共感①", telop: "\"どこから調べたらいいか分からん\"", video: "スマホで検索しまくってタブが20個開いてる画面", audio: "" },
+      { time: "7-11s", label: "共感②", telop: "\"ブログ読んでも結局、当日忘れてる\"", video: "メモ帳ごちゃごちゃ / 当日パパが困り顔", audio: "" },
+      { time: "11-16s", label: "不安解消", telop: "全部まとめて、1つにしたよ", video: "アプリのホーム画面をスッと表示", audio: "" },
+      { time: "16-22s", label: "説明少し", telop: "プラン / 身長制限 / チェックリスト / チケット値段も全部入り", video: "機能をパラパラと4カット切り替え", audio: "" },
+      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "\"パパすごい\"って、もう一回言われよう✨", video: "ハッピー未来カットA（冒頭と完全に同じ）※ループ終点", audio: "" }
+    ],
+    caption: "USJで\"パパすごい\"言われた瞬間、全部のしんどさ吹き飛ぶやつ🤣\n\n下調べに疲れたパパへ✨\nプラン・身長制限・チェックリスト・チケット値段、全部1つのアプリにまとめた。\n\nプロフィールのリンクから使えるよ🎶",
+    hashtags: "#子連れUSJ #USJパパ #USJ攻略 #USJ2026 #USJ持ち物",
+    personality: {
+      sun: "「もう1人で調べなくていい」「\"パパすごい\"」（特別感・インパクト）",
+      earth: "「4機能全部入り」「1つにまとめた」（効率・まとめ）",
+      moon: "「パパも家族もハッピー」「みんなで楽しもう」（共感・調和）"
+    }
+  },
+  {
+    title: "情報迷子ママ系（時間ない・下調べ無理）",
+    scenes: [
+      { time: "0-3s", label: "結論 / ループ起点", telop: "USJの下調べ、もう卒業", video: "ママと子供がパークで笑ってアイス食べてる（ハッピー未来カットB）※ループ起点", audio: "時間かけて調べる時代、終わったよ" },
+      { time: "3-7s", label: "共感①", telop: "\"平日フルで働いて、調べる時間ゼロ\"", video: "深夜にスマホでUSJ検索してる疲れた手元", audio: "" },
+      { time: "7-11s", label: "共感②", telop: "\"結局、夫任せで当日グダる\"", video: "パーク入ってすぐ「次どこ？」って迷ってる家族", audio: "" },
+      { time: "11-16s", label: "不安解消", telop: "調べなくても、アプリが教えてくれる", video: "アプリがサクッとプラン表示", audio: "" },
+      { time: "16-22s", label: "説明少し", telop: "身長制限・所要時間・順番、全部自動で", video: "プランニング画面がくるくる動く演出", audio: "" },
+      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "当日は\"楽しむ\"だけでいい🎶", video: "ハッピー未来カットB（冒頭と同じ）※ループ終点", audio: "" }
+    ],
+    caption: "USJ行きたいけど、下調べする時間ない人✨\n\n自分もそうやった🤣\nブログ10個読んでも、当日になったら全部忘れてる。\n\nこのアプリ入れたら、当日\"楽しむ\"だけでよくなった🎶\nプロフィールのリンクから見てみて✨",
+    hashtags: "#子連れUSJ #ワーママ #USJ攻略 #ユニバ子連れ #USJ回り方",
+    personality: {
+      sun: "「下調べ卒業」「もう終わり」（インパクト・自由）",
+      earth: "「身長制限・所要時間・順番まで自動」（効率・時短）",
+      moon: "「ワーママあるある」「みんな同じ」（共感・安心）"
+    }
+  },
+  {
+    title: "初USJ・初心者系（一番怖いのは「知らない」）",
+    scenes: [
+      { time: "0-3s", label: "結論 / ループ起点", telop: "初USJ、怖くない", video: "初USJの子供が驚きと笑顔でキャッスル見てる（ハッピー未来カットC）※ループ起点", audio: "ここで転ばん方法、用意したよ" },
+      { time: "3-7s", label: "共感①", telop: "\"身長制限、何cmから乗れるか分からん\"", video: "子供の身長測ってる手元", audio: "" },
+      { time: "7-11s", label: "共感②", telop: "\"何持っていけばいいかも分からん\"", video: "リュックの前で途方に暮れるシーン", audio: "" },
+      { time: "11-16s", label: "不安解消", telop: "初心者が詰むポイント、全部先回り", video: "アプリの「初USJモード」っぽい画面", audio: "" },
+      { time: "16-22s", label: "説明少し", telop: "身長別の乗れるアトラクション / 必須の持ち物リスト付き", video: "リスト画面のスクロール", audio: "" },
+      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "初USJ、最高の思い出にしよ✨", video: "ハッピー未来カットC（冒頭と同じ）※ループ終点", audio: "" }
+    ],
+    caption: "初USJって、一番不安なやつ🤣\n\n身長制限・持ち物・回り方、全部\"初めての人が詰むポイント\"だけまとめた✨\n\n子供の\"楽しかった！\"が欲しい人、プロフィールのリンクから見てみて🎶",
+    hashtags: "#初USJ #子連れUSJ #USJ持ち物 #ユニバ初心者 #USJ身長制限",
+    personality: {
+      sun: "「初USJを最高の思い出に」（特別・一度きり）",
+      earth: "「身長別リスト・持ち物リスト」（具体的・実用）",
+      moon: "「初めてで不安あるある」（共感・安心）"
+    }
+  },
+  {
+    title: "GW・繁忙期系（混むから諦めるのはもったいない）",
+    scenes: [
+      { time: "0-3s", label: "結論 / ループ起点", telop: "GWのUSJ、諦めんでいい", video: "混雑の中でも子供が笑ってる（ハッピー未来カットD）※ループ起点", audio: "混んでても楽しめる方法、ある" },
+      { time: "3-7s", label: "共感①", telop: "\"待ち時間3時間とか、心折れる\"", video: "待機列で子供がぐずってるあるあるシーン", audio: "" },
+      { time: "7-11s", label: "共感②", telop: "\"結局、何も乗れずに帰る日あるよね\"", video: "疲れた家族が駅に向かう背中", audio: "" },
+      { time: "11-16s", label: "不安解消", telop: "混雑日こそ、プランが全て", video: "アプリがプランを自動計算する演出", audio: "" },
+      { time: "16-22s", label: "説明少し", telop: "混雑日の回り方 / 並ばず体験できるコンテンツも一覧化", video: "機能画面をテンポ良く", audio: "" },
+      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "混雑日でも、笑って帰ろう✨", video: "ハッピー未来カットD（冒頭と同じ）※ループ終点", audio: "" }
+    ],
+    caption: "GW・お盆・年末年始のUSJ、毎年ぐったりしてない？？🤣\n\n混雑日は\"運\"じゃなくて\"プラン\"で決まる✨\n並ばず楽しめるやつも、全部アプリにまとめたよ🎶\n\nプロフィールのリンクから見てみて！",
+    hashtags: "#GWUSJ #USJ混雑 #子連れUSJ #USJ攻略 #USJ待ち時間",
+    personality: {
+      sun: "「混雑日でも楽しめる特別なコツ」（特別・限定感）",
+      earth: "「並ばず体験できる一覧・数字で判断」（効率・お得）",
+      moon: "「毎年ぐったりあるある」（共感・みんな同じ）"
+    }
+  },
+  {
+    title: "マイリスト保存・リピーター系（攻略派の味方）",
+    scenes: [
+      { time: "0-3s", label: "結論 / ループ起点", telop: "USJ行く前日、5分で準備完了", video: "前日の夜、リビングで親子がワクワクしてる（ハッピー未来カットE）※ループ起点", audio: "準備、もう一瞬で終わる" },
+      { time: "3-7s", label: "共感①", telop: "\"毎回、同じこと調べ直してる\"", video: "去年のメモを探してる手元", audio: "" },
+      { time: "7-11s", label: "共感②", telop: "\"家族の好みも毎回忘れる\"", video: "「前回どこ行ったっけ？」って考える表情", audio: "" },
+      { time: "11-16s", label: "不安解消", telop: "自分用のリスト、保存できる", video: "マイリスト保存のUI動作シーン", audio: "" },
+      { time: "16-22s", label: "説明少し", telop: "LINEログインで次回そのまま呼び出し / 家族ごとの好みも記憶", video: "ログイン→マイリスト表示の流れ", audio: "" },
+      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "準備5分、当日まるごと楽しも✨", video: "ハッピー未来カットE（冒頭と同じ）※ループ終点", audio: "" }
+    ],
+    caption: "USJ何回も行ってる人ほど刺さるやつ🤣\n\n毎回ゼロから調べ直すの、時間の無駄すぎやん。\nLINEログインで\"自分専用プラン\"が保存できるようにした✨\n\nリピーターこそプロフィールのリンクから試してみて🎶",
+    hashtags: "#USJリピーター #USJ年パス #子連れUSJ #USJ攻略 #USJ持ち物",
+    personality: {
+      sun: "「5分で準備完了」「自分専用」（特別感・自由）",
+      earth: "「保存・呼び出しで時短」（効率・お得）",
+      moon: "「毎回調べ直しあるある」「家族ごとに記憶」（共感・家族）"
+    }
+  }
+];
+
+const STORAGE_KEY = "tamago-reel-scripts-v1";
+const UPDATED_KEY = "tamago-reel-scripts-updated";
+
+function loadScripts() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch (e) { console.error(e); }
+  return JSON.parse(JSON.stringify(DEFAULT_SCRIPTS));
+}
+
+function saveScripts(scripts) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(scripts));
+  const now = new Date().toLocaleString("ja-JP");
+  localStorage.setItem(UPDATED_KEY, now);
+  document.getElementById("lastUpdated").textContent = now;
+  const s = document.getElementById("saveStatus");
+  s.textContent = "✓ 保存済み " + now.split(" ")[1];
+  s.style.color = "var(--ok)";
+}
+
+let scripts = loadScripts();
+
+function render() {
+  const main = document.getElementById("scripts");
+  main.innerHTML = "";
+  scripts.forEach((script, i) => {
+    const card = document.createElement("div");
+    card.className = "script-card";
+    card.dataset.index = i;
+
+    const scenesHtml = script.scenes.map((sc, j) => `
+      <div class="scene">
+        <div class="scene-time">
+          ${sc.time}
+          <b>${escapeHtml(sc.label)}</b>
+        </div>
+        <div class="scene-fields">
+          <div class="field">
+            <span class="field-label">テロップ</span>
+            <div class="editable" data-placeholder="テロップ" data-path="scenes.${j}.telop" contenteditable="true">${escapeHtml(sc.telop)}</div>
+          </div>
+          <div class="field">
+            <span class="field-label">映像</span>
+            <div class="editable" data-placeholder="映像指示" data-path="scenes.${j}.video" contenteditable="true">${escapeHtml(sc.video)}</div>
+          </div>
+          <div class="field">
+            <span class="field-label">音声</span>
+            <div class="editable" data-placeholder="（必要な場合のみ）" data-path="scenes.${j}.audio" contenteditable="true">${escapeHtml(sc.audio)}</div>
+          </div>
+        </div>
+      </div>
+    `).join("");
+
+    card.innerHTML = `
+      <div class="script-header">
+        <div class="script-number">${i + 1}</div>
+        <div class="script-title editable" data-path="title" contenteditable="true">${escapeHtml(script.title)}</div>
+      </div>
+      ${scenesHtml}
+      <div class="caption-block">
+        <div class="block-label">📝 キャプション</div>
+        <div class="caption-text editable" data-path="caption" contenteditable="true">${escapeHtml(script.caption)}</div>
+      </div>
+      <div class="hashtag-block">
+        <div class="block-label"># ハッシュタグ</div>
+        <div class="hashtag-text editable" data-path="hashtags" contenteditable="true">${escapeHtml(script.hashtags)}</div>
+      </div>
+      <div class="personality-block">
+        <div class="block-label">🎯 個性心理学チェック</div>
+        <ul>
+          <li><span class="pill sun">SUN</span><div class="editable" data-path="personality.sun" contenteditable="true">${escapeHtml(script.personality.sun)}</div></li>
+          <li><span class="pill earth">EARTH</span><div class="editable" data-path="personality.earth" contenteditable="true">${escapeHtml(script.personality.earth)}</div></li>
+          <li><span class="pill moon">MOON</span><div class="editable" data-path="personality.moon" contenteditable="true">${escapeHtml(script.personality.moon)}</div></li>
+        </ul>
+      </div>
+      <div class="card-actions">
+        <button onclick="copyScript(${i})">📋 この台本をコピー</button>
+      </div>
+    `;
+    main.appendChild(card);
+  });
+
+  document.querySelectorAll(".editable").forEach(el => {
+    el.addEventListener("input", onEdit);
+    el.addEventListener("blur", () => saveScripts(scripts));
+  });
+
+  const updated = localStorage.getItem(UPDATED_KEY);
+  if (updated) document.getElementById("lastUpdated").textContent = updated;
+}
+
+function onEdit(e) {
+  const el = e.currentTarget;
+  const path = el.dataset.path;
+  const card = el.closest(".script-card");
+  const index = parseInt(card.dataset.index, 10);
+  const value = el.innerText;
+  setByPath(scripts[index], path, value);
+  const s = document.getElementById("saveStatus");
+  s.textContent = "編集中...";
+  s.style.color = "var(--text-sub)";
+  clearTimeout(onEdit._t);
+  onEdit._t = setTimeout(() => saveScripts(scripts), 600);
+}
+
+function setByPath(obj, path, value) {
+  const keys = path.split(".");
+  let cur = obj;
+  for (let i = 0; i < keys.length - 1; i++) {
+    const k = keys[i];
+    cur = cur[isNaN(k) ? k : parseInt(k, 10)];
+  }
+  const last = keys[keys.length - 1];
+  cur[isNaN(last) ? last : parseInt(last, 10)] = value;
+}
+
+function escapeHtml(s) {
+  return String(s ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove("show"), 1800);
+}
+
+function scriptToMarkdown(s, i) {
+  let md = `## 🎬 台本${i + 1}：${s.title}\n\n`;
+  s.scenes.forEach(sc => {
+    md += `### 【${sc.time} ${sc.label}】\n`;
+    md += `- **テロップ**: ${sc.telop}\n`;
+    md += `- **映像**: ${sc.video}\n`;
+    if (sc.audio) md += `- **音声**: ${sc.audio}\n`;
+    md += `\n`;
+  });
+  md += `### キャプション\n\`\`\`\n${s.caption}\n\`\`\`\n\n`;
+  md += `### ハッシュタグ\n${s.hashtags}\n\n`;
+  md += `### 個性心理学チェック\n`;
+  md += `- ✅ SUN: ${s.personality.sun}\n`;
+  md += `- ✅ EARTH: ${s.personality.earth}\n`;
+  md += `- ✅ MOON: ${s.personality.moon}\n\n`;
+  return md;
+}
+
+function copyScript(i) {
+  const md = scriptToMarkdown(scripts[i], i);
+  navigator.clipboard.writeText(md).then(() => showToast("コピーしました✨"));
+}
+
+function downloadMarkdown() {
+  let md = `# たまごのパーク攻略 リール台本\n\n`;
+  md += `構成: 結論 → 共感① → 共感② → 不安解消 → 説明少し → ハッピーな未来（ループ構造）\n\n---\n\n`;
+  scripts.forEach((s, i) => { md += scriptToMarkdown(s, i) + "---\n\n"; });
+  downloadFile(md, `tamago-reel-scripts-${dateStr()}.md`, "text/markdown");
+  showToast("Markdownをダウンロードしました");
+}
+
+function downloadJSON() {
+  const json = JSON.stringify(scripts, null, 2);
+  downloadFile(json, `tamago-reel-scripts-${dateStr()}.json`, "application/json");
+  showToast("JSONバックアップを保存しました");
+}
+
+function importJSON() {
+  document.getElementById("fileInput").click();
+}
+
+document.getElementById("fileInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!Array.isArray(data)) throw new Error("invalid");
+      if (!confirm("現在の内容を読み込んだJSONで上書きします。続けますか？")) return;
+      scripts = data;
+      saveScripts(scripts);
+      render();
+      showToast("読み込みました");
+    } catch (err) {
+      alert("JSONの読み込みに失敗しました: " + err.message);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+function resetAll() {
+  if (!confirm("すべての編集を破棄して初期値に戻します。よろしいですか？")) return;
+  scripts = JSON.parse(JSON.stringify(DEFAULT_SCRIPTS));
+  saveScripts(scripts);
+  render();
+  showToast("初期値に戻しました");
+}
+
+function downloadFile(content, filename, type) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function dateStr() {
+  const d = new Date();
+  return `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}${String(d.getDate()).padStart(2,"0")}`;
+}
+
+render();
+</script>
+
+</body>
+</html>
