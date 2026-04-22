@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>たまごのパーク攻略 リール台本5本</title>
+<title>たまごのパーク攻略 リール台本5本（ママ層 / ループ構造）</title>
 <style>
   :root {
     --bg: #0f1117;
@@ -18,6 +18,7 @@
     --earth: #6fd39c;
     --sun: #ffb84d;
     --ok: #3dd68c;
+    --loop: #ff6b9d;
   }
   * { box-sizing: border-box; }
   body {
@@ -35,11 +36,7 @@
     padding: 28px 0 12px;
     border-bottom: 1px solid var(--border);
   }
-  header h1 {
-    margin: 0 0 6px;
-    font-size: 22px;
-    letter-spacing: 0.02em;
-  }
+  header h1 { margin: 0 0 6px; font-size: 22px; letter-spacing: 0.02em; }
   header p { margin: 2px 0; color: var(--text-sub); font-size: 13px; }
   .toolbar {
     position: sticky;
@@ -62,11 +59,7 @@
     flex-wrap: wrap;
     align-items: center;
   }
-  .toolbar .status {
-    margin-left: auto;
-    font-size: 12px;
-    color: var(--text-sub);
-  }
+  .toolbar .status { margin-left: auto; font-size: 12px; color: var(--text-sub); }
   button {
     background: var(--card);
     color: var(--text);
@@ -97,8 +90,8 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 16px;
-    padding-bottom: 14px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
     border-bottom: 1px dashed var(--border);
   }
   .script-number {
@@ -121,13 +114,41 @@
   }
   .script-title:focus { background: #242837; border-radius: 6px; padding: 2px 6px; margin: -2px -6px; }
 
+  .loop-phrase {
+    background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(255,184,77,0.08));
+    border: 1px solid rgba(255,107,157,0.3);
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+  }
+  .loop-phrase .loop-label {
+    background: var(--loop);
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .loop-phrase .loop-text {
+    flex: 1;
+    font-weight: 600;
+    color: var(--loop);
+    font-size: 15px;
+  }
+
   .scene {
     display: grid;
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 110px 1fr;
     gap: 10px 14px;
-    padding: 10px 0;
+    padding: 12px 0;
     border-bottom: 1px solid #232735;
   }
+  .scene.loop-scene { background: rgba(255,107,157,0.04); margin: 0 -14px; padding-left: 14px; padding-right: 14px; border-radius: 8px; }
   .scene:last-of-type { border-bottom: none; }
   .scene-time {
     color: var(--text-sub);
@@ -144,10 +165,11 @@
     margin-top: 2px;
     font-weight: 600;
   }
+  .scene.loop-scene .scene-time b { color: var(--loop); }
   .scene-fields { display: flex; flex-direction: column; gap: 6px; }
   .field {
     display: grid;
-    grid-template-columns: 52px 1fr;
+    grid-template-columns: 72px 1fr;
     gap: 10px;
     font-size: 14px;
   }
@@ -164,9 +186,11 @@
     margin: -3px -8px;
     transition: background 0.1s;
     min-height: 1.4em;
+    white-space: pre-wrap;
   }
   .editable:hover { background: #222637; }
   .editable:focus { background: #262b3e; box-shadow: inset 0 0 0 1px var(--accent); }
+  .editable.telop { font-weight: 600; }
   .editable[data-placeholder]:empty::before {
     content: attr(data-placeholder);
     color: #565c71;
@@ -253,7 +277,7 @@
   @media (max-width: 600px) {
     .scene { grid-template-columns: 1fr; gap: 6px; }
     .scene-time { padding-top: 0; }
-    .field { grid-template-columns: 46px 1fr; }
+    .field { grid-template-columns: 60px 1fr; font-size: 13px; }
     .toolbar-inner { gap: 6px; }
     button { padding: 7px 10px; font-size: 12px; }
     .toolbar .status { width: 100%; margin-left: 0; }
@@ -263,9 +287,10 @@
 <body>
 
 <header>
-  <h1>🎬 たまごのパーク攻略 / ローンチ用リール台本</h1>
-  <p>構成: 結論 → 共感① → 共感② → 不安解消 → 説明少し → ハッピーな未来（ループ構造）</p>
-  <p>全項目クリックで編集可 / 変更は自動保存（このブラウザに保存）</p>
+  <h1>🎬 たまごのパーク攻略 / ローンチ用リール台本5本</h1>
+  <p>ターゲット: 30〜45歳 主婦・ママ層 / 子連れファミリー層</p>
+  <p>構成: 結論 → 共感① → 共感② → 不安解消 → 説明① → 説明② → ループ戻り（冒頭と完全同一）</p>
+  <p>全項目クリックで編集可 / 変更は自動保存（このブラウザに保存） / テロップの <code>/</code> は改行</p>
 </header>
 
 <div class="toolbar">
@@ -285,105 +310,114 @@
 </footer>
 
 <div class="toast" id="toast"></div>
-
 <input type="file" id="fileInput" accept=".json" style="display:none;" />
 
 <script>
 const DEFAULT_SCRIPTS = [
   {
-    title: "パパ株爆上がり系（メインターゲット・父親目線）",
+    title: "時間ゼロ・下調べ迷子系（ワーママ共感型）",
+    loopPhrase: "調べる時間ゼロ／最高のユニバになった日",
     scenes: [
-      { time: "0-3s", label: "結論 / ループ起点", telop: "もう、USJ前夜に1人で調べなくていい", video: "子供2人とパパがパークでハイタッチ（ハッピー未来カットA）※ループ起点", audio: "これ1つで、もう十分やと思う" },
-      { time: "3-7s", label: "共感①", telop: "\"どこから調べたらいいか分からん\"", video: "スマホで検索しまくってタブが20個開いてる画面", audio: "" },
-      { time: "7-11s", label: "共感②", telop: "\"ブログ読んでも結局、当日忘れてる\"", video: "メモ帳ごちゃごちゃ / 当日パパが困り顔", audio: "" },
-      { time: "11-16s", label: "不安解消", telop: "全部まとめて、1つにしたよ", video: "アプリのホーム画面をスッと表示", audio: "" },
-      { time: "16-22s", label: "説明少し", telop: "プラン / 身長制限 / チェックリスト / チケット値段も全部入り", video: "機能をパラパラと4カット切り替え", audio: "" },
-      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "\"パパすごい\"って、もう一回言われよう✨", video: "ハッピー未来カットA（冒頭と完全に同じ）※ループ終点", audio: "" }
+      { time: "0-3s",  label: "結論 / ループ起点",          telop: "調べる時間ゼロ/最高のユニバになった日", narration: "調べる時間ゼロでも、最高のユニバになった日",   video: "ママと子供が笑顔でパーク内を歩く後ろ姿" },
+      { time: "3-7s",  label: "共感①",                     telop: "寝かしつけ終わったら/もう24時",         narration: "寝かしつけ終わったら、もう24時",               video: "枕元にスマホ置いて目を閉じる手元" },
+      { time: "7-11s", label: "共感②",                     telop: "ユニバの予習/今日もできなかった",       narration: "ユニバの予習、今日もできなかった",             video: "カレンダーに \"ユニバ\" の予定" },
+      { time: "11-15s",label: "不安解消",                   telop: "このアプリ/開くだけでOK",               narration: "このアプリ、開くだけでOK",                     video: "アプリのホーム画面スッと表示" },
+      { time: "15-20s",label: "説明①",                     telop: "行きたいやつ/選んで枠に入れる",         narration: "行きたいやつ、選んで枠に入れる",               video: "候補→枠にドラッグする操作" },
+      { time: "20-26s",label: "説明②",                     telop: "値段/身長制限/持ち物リスト/ぜんぶ一つに", narration: "値段、身長制限、持ち物リスト、ぜんぶ一つに",   video: "機能3カット切替" },
+      { time: "26-30s",label: "ループ戻り（0-3sと完全同一）", telop: "調べる時間ゼロ/最高のユニバになった日", narration: "調べる時間ゼロでも、最高のユニバになった日",   video: "冒頭と完全に同じカット" }
     ],
-    caption: "USJで\"パパすごい\"言われた瞬間、全部のしんどさ吹き飛ぶやつ🤣\n\n下調べに疲れたパパへ✨\nプラン・身長制限・チェックリスト・チケット値段、全部1つのアプリにまとめた。\n\nプロフィールのリンクから使えるよ🎶",
-    hashtags: "#子連れUSJ #USJパパ #USJ攻略 #USJ2026 #USJ持ち物",
+    caption: "夜、寝かしつけ終わって\"さあユニバ予習\"ってなるけど、\n気づいたら寝落ちしてるやつ🤣\n\n自分で調べる時代、もう終わっていいよ✨\n行きたいショーとアトラクション、選んで時間枠に入れるだけ。\n値段も身長制限も持ち物リストも、ぜんぶ1つのアプリに🎶\n\nプロフィールのリンクから見てみて！",
+    hashtags: "#子連れUSJ #ワーママ #USJ攻略 #ユニバ子連れ #ママの味方",
     personality: {
-      sun: "「もう1人で調べなくていい」「\"パパすごい\"」（特別感・インパクト）",
-      earth: "「4機能全部入り」「1つにまとめた」（効率・まとめ）",
-      moon: "「パパも家族もハッピー」「みんなで楽しもう」（共感・調和）"
+      sun: "「もう調べなくていい」（自由・解放）",
+      earth: "「値段・身長制限・持ち物リスト、全部一つに」（効率）",
+      moon: "「寝かしつけ後24時あるある」（共感・安心）"
     }
   },
   {
-    title: "情報迷子ママ系（時間ない・下調べ無理）",
+    title: "当日ママが仕切り疲れる系",
+    loopPhrase: "当日／何もしなかったユニバ",
     scenes: [
-      { time: "0-3s", label: "結論 / ループ起点", telop: "USJの下調べ、もう卒業", video: "ママと子供がパークで笑ってアイス食べてる（ハッピー未来カットB）※ループ起点", audio: "時間かけて調べる時代、終わったよ" },
-      { time: "3-7s", label: "共感①", telop: "\"平日フルで働いて、調べる時間ゼロ\"", video: "深夜にスマホでUSJ検索してる疲れた手元", audio: "" },
-      { time: "7-11s", label: "共感②", telop: "\"結局、夫任せで当日グダる\"", video: "パーク入ってすぐ「次どこ？」って迷ってる家族", audio: "" },
-      { time: "11-16s", label: "不安解消", telop: "調べなくても、アプリが教えてくれる", video: "アプリがサクッとプラン表示", audio: "" },
-      { time: "16-22s", label: "説明少し", telop: "身長制限・所要時間・順番、全部自動で", video: "プランニング画面がくるくる動く演出", audio: "" },
-      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "当日は\"楽しむ\"だけでいい🎶", video: "ハッピー未来カットB（冒頭と同じ）※ループ終点", audio: "" }
+      { time: "0-3s",  label: "結論 / ループ起点", telop: "当日/何もしなかったユニバ",             narration: "当日、何もしなかったユニバ",                   video: "ベンチでゆっくりドリンク飲むママの手元" },
+      { time: "3-7s",  label: "共感①",           telop: "\"次どこ？\" \"あれ乗りたい！\"",       narration: "朝から晩まで、みんなが私に聞いてくる",         video: "ママの周りに家族が集まる構図" },
+      { time: "7-11s", label: "共感②",           telop: "写真フォルダ/自分だけ写ってない",        narration: "写真フォルダ見返したら、私だけ写ってない",     video: "写真フォルダを見返すスマホ画面" },
+      { time: "11-15s",label: "不安解消",         telop: "家族全員で/同じ画面が見られる",          narration: "1人で抱え込まなくていい",                      video: "アプリを家族のスマホに送る画面" },
+      { time: "15-20s",label: "説明①",           telop: "プランも地図も/全員が同じ画面",          narration: "プランも地図も、全員が同じ画面",               video: "家族がそれぞれアプリ見てる" },
+      { time: "20-26s",label: "説明②",           telop: "身長制限も持ち物も/子供が自分で確認",    narration: "\"次何乗れる？\" も、もう私に聞かなくていい",  video: "子供が自分でアプリ見てる" },
+      { time: "26-30s",label: "ループ戻り",       telop: "当日/何もしなかったユニバ",             narration: "当日、何もしなかったユニバ",                   video: "冒頭と完全に同じカット" }
     ],
-    caption: "USJ行きたいけど、下調べする時間ない人✨\n\n自分もそうやった🤣\nブログ10個読んでも、当日になったら全部忘れてる。\n\nこのアプリ入れたら、当日\"楽しむ\"だけでよくなった🎶\nプロフィールのリンクから見てみて✨",
-    hashtags: "#子連れUSJ #ワーママ #USJ攻略 #ユニバ子連れ #USJ回り方",
+    caption: "ユニバの写真フォルダ見返したら、自分だけ写ってなかったとき🤣\n\n気づいたら当日のガイド役、ぜんぶママ担当になってない？？\n家族全員で共有できるアプリ作ったよ✨\nママも、ちゃんと楽しんでいいから🎶",
+    hashtags: "#子連れUSJ #ワンオペ旅行 #USJ攻略 #ママ時間 #ユニバ家族",
     personality: {
-      sun: "「下調べ卒業」「もう終わり」（インパクト・自由）",
-      earth: "「身長制限・所要時間・順番まで自動」（効率・時短）",
-      moon: "「ワーママあるある」「みんな同じ」（共感・安心）"
+      sun: "「ママが何もしなかった」（解放・ご褒美）",
+      earth: "「プラン・身長制限・持ち物 全部共有」（効率）",
+      moon: "「ママだけ写ってないあるある」（共感）"
     }
   },
   {
-    title: "初USJ・初心者系（一番怖いのは「知らない」）",
+    title: "初ユニバ・不安マックス系",
+    loopPhrase: "子供の\"また来たい\"で／泣いたユニバ",
     scenes: [
-      { time: "0-3s", label: "結論 / ループ起点", telop: "初USJ、怖くない", video: "初USJの子供が驚きと笑顔でキャッスル見てる（ハッピー未来カットC）※ループ起点", audio: "ここで転ばん方法、用意したよ" },
-      { time: "3-7s", label: "共感①", telop: "\"身長制限、何cmから乗れるか分からん\"", video: "子供の身長測ってる手元", audio: "" },
-      { time: "7-11s", label: "共感②", telop: "\"何持っていけばいいかも分からん\"", video: "リュックの前で途方に暮れるシーン", audio: "" },
-      { time: "11-16s", label: "不安解消", telop: "初心者が詰むポイント、全部先回り", video: "アプリの「初USJモード」っぽい画面", audio: "" },
-      { time: "16-22s", label: "説明少し", telop: "身長別の乗れるアトラクション / 必須の持ち物リスト付き", video: "リスト画面のスクロール", audio: "" },
-      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "初USJ、最高の思い出にしよ✨", video: "ハッピー未来カットC（冒頭と同じ）※ループ終点", audio: "" }
+      { time: "0-3s",  label: "結論 / ループ起点", telop: "子供の\"また来たい\"で/泣いたユニバ",     narration: "子供の \"また来たい\" で、泣いたユニバ",       video: "帰りの車内で寝る子供と涙ぐむママの横顔" },
+      { time: "3-7s",  label: "共感①",           telop: "初ユニバ/失敗したら1日ムダ",              narration: "初めてって、怖くない？？",                     video: "パンフレット前で止まる手" },
+      { time: "7-11s", label: "共感②",           telop: "調べるほど/逆に分からなくなる",           narration: "ブログ10個見ても、結論出ない",                 video: "検索結果で溢れたスマホ画面" },
+      { time: "11-15s",label: "不安解消",         telop: "初心者が詰まるポイント/先回りした",      narration: "初めて専用のガイド、作ったよ",                 video: "アプリのUI画面" },
+      { time: "15-20s",label: "説明①",           telop: "身長別に乗れるやつ/ぜんぶリスト化",       narration: "何cmで何乗れるか、もう迷わない",               video: "身長別リストのスクロール" },
+      { time: "20-26s",label: "説明②",           telop: "初ユニバ持ち物チェック/抜け漏れなし",     narration: "持ち物も、1つずつチェックしていけばOK",        video: "チェックリストUI" },
+      { time: "26-30s",label: "ループ戻り",       telop: "子供の\"また来たい\"で/泣いたユニバ",     narration: "子供の \"また来たい\" で、泣いたユニバ",       video: "冒頭と完全に同じカット" }
     ],
-    caption: "初USJって、一番不安なやつ🤣\n\n身長制限・持ち物・回り方、全部\"初めての人が詰むポイント\"だけまとめた✨\n\n子供の\"楽しかった！\"が欲しい人、プロフィールのリンクから見てみて🎶",
-    hashtags: "#初USJ #子連れUSJ #USJ持ち物 #ユニバ初心者 #USJ身長制限",
+    caption: "初ユニバで\"また来たい！\"って言われたら、絶対泣くやつ🤣\n\n初めてほど、調べれば調べるほど分からなくなる💦\n身長制限・持ち物・回り方、初ユニバに必要なやつだけまとめた✨\n\nプロフィールのリンクから見てみて🎶",
+    hashtags: "#初USJ #子連れUSJ #USJ持ち物 #USJ身長制限 #ユニバ初心者",
     personality: {
-      sun: "「初USJを最高の思い出に」（特別・一度きり）",
-      earth: "「身長別リスト・持ち物リスト」（具体的・実用）",
-      moon: "「初めてで不安あるある」（共感・安心）"
+      sun: "「\"また来たい\"で泣いた」（感動・特別）",
+      earth: "「身長別リスト・持ち物チェックリスト」（具体・実用）",
+      moon: "「初めて不安あるある」（共感・安心）"
     }
   },
   {
-    title: "GW・繁忙期系（混むから諦めるのはもったいない）",
+    title: "旅費ムダにしたくない系",
+    loopPhrase: "旅費／ちゃんと元が取れたユニバ",
     scenes: [
-      { time: "0-3s", label: "結論 / ループ起点", telop: "GWのUSJ、諦めんでいい", video: "混雑の中でも子供が笑ってる（ハッピー未来カットD）※ループ起点", audio: "混んでても楽しめる方法、ある" },
-      { time: "3-7s", label: "共感①", telop: "\"待ち時間3時間とか、心折れる\"", video: "待機列で子供がぐずってるあるあるシーン", audio: "" },
-      { time: "7-11s", label: "共感②", telop: "\"結局、何も乗れずに帰る日あるよね\"", video: "疲れた家族が駅に向かう背中", audio: "" },
-      { time: "11-16s", label: "不安解消", telop: "混雑日こそ、プランが全て", video: "アプリがプランを自動計算する演出", audio: "" },
-      { time: "16-22s", label: "説明少し", telop: "混雑日の回り方 / 並ばず体験できるコンテンツも一覧化", video: "機能画面をテンポ良く", audio: "" },
-      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "混雑日でも、笑って帰ろう✨", video: "ハッピー未来カットD（冒頭と同じ）※ループ終点", audio: "" }
+      { time: "0-3s",  label: "結論 / ループ起点", telop: "旅費/ちゃんと元が取れたユニバ",           narration: "旅費、ちゃんと元が取れたユニバ",               video: "家族がパレードの最高の場所で揃って見てる後ろ姿" },
+      { time: "3-7s",  label: "共感①",           telop: "4人家族のユニバ/もう5万じゃ足りん",       narration: "4人家族で、5万超える時代",                     video: "財布とチケット画面" },
+      { time: "7-11s", label: "共感②",           telop: "何も乗れずに帰る日/怖すぎ",              narration: "何も乗れずに帰るのが、一番キツい",             video: "疲れて帰る家族の背中" },
+      { time: "11-15s",label: "不安解消",         telop: "当日の動き/決まってれば詰まない",         narration: "先に決めとくだけで、ぜんぶ変わる",             video: "アプリで自作プランを確認する画面" },
+      { time: "15-20s",label: "説明①",           telop: "見たいショーとアトラクション/時間枠に入れるだけ", narration: "候補を選んで、時間枠に入れるだけ",     video: "タイムテーブルに候補をドラッグする操作" },
+      { time: "20-26s",label: "説明②",           telop: "並ばず楽しめるコンテンツも/場所ごとに一覧", narration: "並ばんでも楽しめるやつ、意外と多い",           video: "スポット一覧画面" },
+      { time: "26-30s",label: "ループ戻り",       telop: "旅費/ちゃんと元が取れたユニバ",           narration: "旅費、ちゃんと元が取れたユニバ",               video: "冒頭と完全に同じカット" }
     ],
-    caption: "GW・お盆・年末年始のUSJ、毎年ぐったりしてない？？🤣\n\n混雑日は\"運\"じゃなくて\"プラン\"で決まる✨\n並ばず楽しめるやつも、全部アプリにまとめたよ🎶\n\nプロフィールのリンクから見てみて！",
-    hashtags: "#GWUSJ #USJ混雑 #子連れUSJ #USJ攻略 #USJ待ち時間",
+    caption: "4人家族のユニバ、もう5万じゃ足りない時代🤣\n\nだからこそ、1日をムダにしない動きが大事✨\n見たいショーとアトラクション、時間枠に入れるだけ。\n並ばず楽しめるコンテンツも、ぜんぶアプリに入れたよ🎶\n\nプロフィールのリンクから見てみて！",
+    hashtags: "#子連れUSJ #USJ攻略 #USJ混雑 #家族旅行 #ユニバ旅行",
     personality: {
-      sun: "「混雑日でも楽しめる特別なコツ」（特別・限定感）",
-      earth: "「並ばず体験できる一覧・数字で判断」（効率・お得）",
-      moon: "「毎年ぐったりあるある」（共感・みんな同じ）"
+      sun: "「元が取れた」（勝利感・特別）",
+      earth: "「5万」「時間枠にハメるだけ」（数字・効率）",
+      moon: "「何も乗れず帰るの怖いあるある」（共感）"
     }
   },
   {
-    title: "マイリスト保存・リピーター系（攻略派の味方）",
+    title: "ママ自身が楽しむ系",
+    loopPhrase: "ママが／一番はしゃいでたユニバ",
     scenes: [
-      { time: "0-3s", label: "結論 / ループ起点", telop: "USJ行く前日、5分で準備完了", video: "前日の夜、リビングで親子がワクワクしてる（ハッピー未来カットE）※ループ起点", audio: "準備、もう一瞬で終わる" },
-      { time: "3-7s", label: "共感①", telop: "\"毎回、同じこと調べ直してる\"", video: "去年のメモを探してる手元", audio: "" },
-      { time: "7-11s", label: "共感②", telop: "\"家族の好みも毎回忘れる\"", video: "「前回どこ行ったっけ？」って考える表情", audio: "" },
-      { time: "11-16s", label: "不安解消", telop: "自分用のリスト、保存できる", video: "マイリスト保存のUI動作シーン", audio: "" },
-      { time: "16-22s", label: "説明少し", telop: "LINEログインで次回そのまま呼び出し / 家族ごとの好みも記憶", video: "ログイン→マイリスト表示の流れ", audio: "" },
-      { time: "22-27s", label: "ハッピーな未来 / ループ終点", telop: "準備5分、当日まるごと楽しも✨", video: "ハッピー未来カットE（冒頭と同じ）※ループ終点", audio: "" }
+      { time: "0-3s",  label: "結論 / ループ起点", telop: "ママが/一番はしゃいでたユニバ",           narration: "ママが、一番はしゃいでたユニバ",               video: "キャッスル前でピースするママの正面カット" },
+      { time: "3-7s",  label: "共感①",           telop: "家族を楽しませるのに/必死で",             narration: "毎回、家族を楽しませるのに必死",               video: "周りを気にしながら動くママ" },
+      { time: "7-11s", label: "共感②",           telop: "自分は\"疲れた\"/だけで終わってた",       narration: "気づいたら、 \"疲れた\" しか言ってない",       video: "ソファに倒れるママの背中" },
+      { time: "11-15s",label: "不安解消",         telop: "当日の動き/先に決めておけば迷わない",     narration: "先に決めとけば、当日はもう迷わん",             video: "アプリでプラン確認してる画面" },
+      { time: "15-20s",label: "説明①",           telop: "行きたいやつ選んで/時間枠に入れるだけ",   narration: "行きたいショーとアトラクション、選んで枠に入れるだけ", video: "候補→枠にドラッグする操作" },
+      { time: "20-26s",label: "説明②",           telop: "身長制限も持ち物も/同じ画面でサッと確認", narration: "身長制限も持ち物も、同じ画面で確認できる",     video: "機能3カット切替" },
+      { time: "26-30s",label: "ループ戻り",       telop: "ママが/一番はしゃいでたユニバ",           narration: "ママが、一番はしゃいでたユニバ",               video: "冒頭と完全に同じカット" }
     ],
-    caption: "USJ何回も行ってる人ほど刺さるやつ🤣\n\n毎回ゼロから調べ直すの、時間の無駄すぎやん。\nLINEログインで\"自分専用プラン\"が保存できるようにした✨\n\nリピーターこそプロフィールのリンクから試してみて🎶",
-    hashtags: "#USJリピーター #USJ年パス #子連れUSJ #USJ攻略 #USJ持ち物",
+    caption: "\"ママも、ちゃんと楽しんでいい日\"✨\n\n家族を楽しませるのに必死で、気づいたら\"疲れた\"しか言ってない日もある🤣\n当日の動き、先に決めておけばもう迷わない🎶\nママも本気で遊ぼう✨\n\nプロフィールのリンクから見てみて！",
+    hashtags: "#ママ時間 #子連れUSJ #USJ攻略 #ユニバ女子 #ママ旅",
     personality: {
-      sun: "「5分で準備完了」「自分専用」（特別感・自由）",
-      earth: "「保存・呼び出しで時短」（効率・お得）",
-      moon: "「毎回調べ直しあるある」「家族ごとに記憶」（共感・家族）"
+      sun: "「一番はしゃいでた」（解放・特別）",
+      earth: "「時間枠に入れるだけ」「同じ画面で確認」（効率）",
+      moon: "「家族優先で疲れちゃうあるある」（共感）"
     }
   }
 ];
 
-const STORAGE_KEY = "tamago-reel-scripts-v1";
-const UPDATED_KEY = "tamago-reel-scripts-updated";
+const STORAGE_KEY = "tamago-reel-scripts-v2";
+const UPDATED_KEY = "tamago-reel-scripts-updated-v2";
 
 function loadScripts() {
   try {
@@ -393,14 +427,14 @@ function loadScripts() {
   return JSON.parse(JSON.stringify(DEFAULT_SCRIPTS));
 }
 
-function saveScripts(scripts) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(scripts));
+function saveScripts(s) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
   const now = new Date().toLocaleString("ja-JP");
   localStorage.setItem(UPDATED_KEY, now);
   document.getElementById("lastUpdated").textContent = now;
-  const s = document.getElementById("saveStatus");
-  s.textContent = "✓ 保存済み " + now.split(" ")[1];
-  s.style.color = "var(--ok)";
+  const st = document.getElementById("saveStatus");
+  st.textContent = "✓ 保存済み " + now.split(" ")[1];
+  st.style.color = "var(--ok)";
 }
 
 let scripts = loadScripts();
@@ -413,33 +447,40 @@ function render() {
     card.className = "script-card";
     card.dataset.index = i;
 
-    const scenesHtml = script.scenes.map((sc, j) => `
-      <div class="scene">
-        <div class="scene-time">
-          ${sc.time}
-          <b>${escapeHtml(sc.label)}</b>
+    const scenesHtml = script.scenes.map((sc, j) => {
+      const isLoop = sc.label.includes("結論") || sc.label.includes("ループ戻り");
+      return `
+        <div class="scene ${isLoop ? "loop-scene" : ""}">
+          <div class="scene-time">
+            ${sc.time}
+            <b>${escapeHtml(sc.label)}</b>
+          </div>
+          <div class="scene-fields">
+            <div class="field">
+              <span class="field-label">テロップ</span>
+              <div class="editable telop" data-placeholder="テロップ（/で改行）" data-path="scenes.${j}.telop" contenteditable="true">${escapeHtml(sc.telop)}</div>
+            </div>
+            <div class="field">
+              <span class="field-label">ナレ</span>
+              <div class="editable" data-placeholder="ナレーション" data-path="scenes.${j}.narration" contenteditable="true">${escapeHtml(sc.narration)}</div>
+            </div>
+            <div class="field">
+              <span class="field-label">映像</span>
+              <div class="editable" data-placeholder="映像指示" data-path="scenes.${j}.video" contenteditable="true">${escapeHtml(sc.video)}</div>
+            </div>
+          </div>
         </div>
-        <div class="scene-fields">
-          <div class="field">
-            <span class="field-label">テロップ</span>
-            <div class="editable" data-placeholder="テロップ" data-path="scenes.${j}.telop" contenteditable="true">${escapeHtml(sc.telop)}</div>
-          </div>
-          <div class="field">
-            <span class="field-label">映像</span>
-            <div class="editable" data-placeholder="映像指示" data-path="scenes.${j}.video" contenteditable="true">${escapeHtml(sc.video)}</div>
-          </div>
-          <div class="field">
-            <span class="field-label">音声</span>
-            <div class="editable" data-placeholder="（必要な場合のみ）" data-path="scenes.${j}.audio" contenteditable="true">${escapeHtml(sc.audio)}</div>
-          </div>
-        </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
 
     card.innerHTML = `
       <div class="script-header">
         <div class="script-number">${i + 1}</div>
         <div class="script-title editable" data-path="title" contenteditable="true">${escapeHtml(script.title)}</div>
+      </div>
+      <div class="loop-phrase">
+        <span class="loop-label">🔁 ループフレーズ</span>
+        <span class="loop-text editable" data-path="loopPhrase" contenteditable="true">${escapeHtml(script.loopPhrase)}</span>
       </div>
       ${scenesHtml}
       <div class="caption-block">
@@ -515,12 +556,12 @@ function showToast(msg) {
 
 function scriptToMarkdown(s, i) {
   let md = `## 🎬 台本${i + 1}：${s.title}\n\n`;
+  md += `**🔁 ループフレーズ**: \`${s.loopPhrase}\`\n\n`;
   s.scenes.forEach(sc => {
     md += `### 【${sc.time} ${sc.label}】\n`;
     md += `- **テロップ**: ${sc.telop}\n`;
-    md += `- **映像**: ${sc.video}\n`;
-    if (sc.audio) md += `- **音声**: ${sc.audio}\n`;
-    md += `\n`;
+    md += `- **ナレ**: ${sc.narration}\n`;
+    md += `- **映像**: ${sc.video}\n\n`;
   });
   md += `### キャプション\n\`\`\`\n${s.caption}\n\`\`\`\n\n`;
   md += `### ハッシュタグ\n${s.hashtags}\n\n`;
@@ -537,8 +578,8 @@ function copyScript(i) {
 }
 
 function downloadMarkdown() {
-  let md = `# たまごのパーク攻略 リール台本\n\n`;
-  md += `構成: 結論 → 共感① → 共感② → 不安解消 → 説明少し → ハッピーな未来（ループ構造）\n\n---\n\n`;
+  let md = `# たまごのパーク攻略 リール台本（ママ層 / ループ構造）\n\n`;
+  md += `構成: 結論 → 共感① → 共感② → 不安解消 → 説明① → 説明② → ループ戻り（冒頭と完全同一）\n\n---\n\n`;
   scripts.forEach((s, i) => { md += scriptToMarkdown(s, i) + "---\n\n"; });
   downloadFile(md, `tamago-reel-scripts-${dateStr()}.md`, "text/markdown");
   showToast("Markdownをダウンロードしました");
@@ -550,9 +591,7 @@ function downloadJSON() {
   showToast("JSONバックアップを保存しました");
 }
 
-function importJSON() {
-  document.getElementById("fileInput").click();
-}
+function importJSON() { document.getElementById("fileInput").click(); }
 
 document.getElementById("fileInput").addEventListener("change", e => {
   const file = e.target.files[0];
@@ -567,9 +606,7 @@ document.getElementById("fileInput").addEventListener("change", e => {
       saveScripts(scripts);
       render();
       showToast("読み込みました");
-    } catch (err) {
-      alert("JSONの読み込みに失敗しました: " + err.message);
-    }
+    } catch (err) { alert("JSONの読み込みに失敗: " + err.message); }
   };
   reader.readAsText(file);
   e.target.value = "";
